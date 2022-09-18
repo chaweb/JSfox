@@ -21,7 +21,7 @@ async function addVote(description, choices, time,compteur, user, channel) {
     logger.info(`new vote : ${description} 
     par ${user.username} 
     fini le ${time.day} / ${time.mouth} à ${time.hour}:${time.min} 
-    à pour choix ${choice}`)
+    à pour choix ${choices}`)
 
     let Fields = []
     choices.forEach(choice => {
@@ -55,16 +55,17 @@ async function addVote(description, choices, time,compteur, user, channel) {
         msg.react(elem.name)
     });
     emojis = ''
+
     setTimeout(async () => {
         await channel.messages.fetch()
-
-        await Fields.forEach(async (elem) => {
-            msgTemp = `\n\n ${elem.name} ${elem.value} : ${msg.reactions.cache.get(elem.name).count}`
+        await Fields.forEach((elem) => {
+            const count = msg.reactions.cache.get(elem.name).count
+            msgTemp = `\n\n ${elem.name} ${elem.value} : ${count}`
             emojis += msgTemp
         });
 
         msg.reply(`fin du sondage. \nresultat : ${emojis}`)
-    },compteur).catch(r => logger.error)
+    },compteur)
 }
 
 
