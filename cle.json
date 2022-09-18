@@ -1,0 +1,6 @@
+{
+    "clientId": "id du bot",
+    "guildId": "id du server",
+    "token": "jeton du bot",
+    "voteChanel": "id du salon vote"
+}
